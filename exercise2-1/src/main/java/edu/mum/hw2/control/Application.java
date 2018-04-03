@@ -94,7 +94,7 @@ public class Application {
 			em.persist(movie);
 			
 			Movie movie2 = new Movie();
-			movie2.setName("Movie 1");
+			movie2.setName("Movie 2");
 			movie2.setRating(4);
 			
 			movie2.getArtists().add(new Artist("Harison Ford", 8, "Main actor"));
