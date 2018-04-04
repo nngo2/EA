@@ -121,11 +121,11 @@ public class Application {
 			@SuppressWarnings("unchecked")
 			List<Product> products = em.createQuery("select p from Product p").getResultList();
 			
-//			Order order0 = new Order();
-//			order0.setDate(df.parse("3/31/2018"));
-//			order0.addOrderLine(new OrderLine(2, products.get(0)));
-//			order0.addOrderLine(new OrderLine(2, products.get(1)));					
-//			em.persist(order0);
+			Order order0 = new Order();
+			order0.setDate(df.parse("3/31/2018"));
+			order0.addOrderLine(new OrderLine(2, products.get(0)));
+			order0.addOrderLine(new OrderLine(2, products.get(1)));					
+			em.persist(order0);
 	
 			Order order1 = new Order();
 			order1.setDate(df.parse("4/1/2018"));
