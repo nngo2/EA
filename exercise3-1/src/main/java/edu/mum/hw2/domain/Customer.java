@@ -22,6 +22,7 @@ public class Customer {
 	private String name;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name="customer_id")
 	private List<Reservation> reservations = new ArrayList<>();
 
 	public Customer() {

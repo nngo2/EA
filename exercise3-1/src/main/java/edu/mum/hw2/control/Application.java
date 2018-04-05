@@ -168,33 +168,33 @@ public class Application {
 			Office o2 = new Office("B200", "1200");
 			em.persist(o2);
 			
-			Department d1 = new Department("IT");
-			
 			Employee e1 = new Employee("Jonathan Chris");
-			em.persist(e1);
 			o1.addEmployee(e1);
 			
 			Employee e2 = new Employee("John Chris");	
-			em.persist(e2);
 			o1.addEmployee(e2);
 			
+			Department d1 = new Department("IT");
 			d1.addEmployee(e1);
 			d1.addEmployee(e2);			
-			em.persist(d1);
 			
-			Department d2 = new Department("Account");
+			em.persist(d1);
+			em.persist(e1);
+			em.persist(e2);
 			
 			Employee e3 = new Employee("Jonathan Chris II");
-			em.persist(e3);
 			o2.addEmployee(e3);
 			
 			Employee e4 = new Employee("John Chris II");		
-			em.persist(e4);
 			o2.addEmployee(e4);
 			
+			Department d2 = new Department("Account");
 			d2.addEmployee(e3);
 			d2.addEmployee(e4);
+			
 			em.persist(d2);
+			em.persist(e3);
+			em.persist(e4);
 			
 			tx.commit();
 		} catch (Throwable e) {
