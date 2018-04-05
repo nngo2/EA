@@ -35,6 +35,7 @@ public class Application {
 		createSubProducts();
 		addOrders();
 		printOrderReport();
+		printBook();
 		emf.close();
 	}
 
@@ -50,6 +51,30 @@ public class Application {
 			for (Order o : orders) {
 				System.out.println("Date: " + o.getDate());
 				System.out.println("-- Order lines: " + o.getOrderLines().stream().map(l -> l.toString()).collect(Collectors.joining(",")));
+			}
+			
+			tx.commit();
+		} catch (Throwable e) {
+			if ((tx != null) && (tx.isActive())) tx.rollback();
+			e.printStackTrace();
+		} finally {
+			if ((em != null) && (em.isOpen())) em.close();
+		}
+	}
+	
+	private static void printBook() {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		try {
+			tx.begin();
+			
+			@SuppressWarnings("unchecked")
+			List<Book> books = em.createQuery("select p from Product p "
+					+ "where type(p) = Book").getResultList();
+			
+			System.out.println("Print books: ");
+			for (Book o : books) {
+				System.out.println("Book: " + o.toString());
 			}
 			
 			tx.commit();
