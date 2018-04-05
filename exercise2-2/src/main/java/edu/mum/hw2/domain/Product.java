@@ -9,8 +9,9 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
 @Entity
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="product_type", discriminatorType=DiscriminatorType.STRING)
+@Inheritance(strategy=InheritanceType.JOINED)
+//@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+//@DiscriminatorColumn(name="product_type", discriminatorType=DiscriminatorType.STRING)
 public abstract class Product {
 	@Id @GeneratedValue
 	private long id;

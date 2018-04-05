@@ -4,7 +4,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("DVD")
+//@DiscriminatorValue("DVD")
 public class DVD extends Product {
 	private String genre;
 	

@@ -22,7 +22,7 @@ public class Order {
 	@Temporal(value = TemporalType.DATE)
 	private Date date;
 
-	@OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
 	private List<OrderLine> orderLines = new ArrayList<>();
 
 	public long getOrderId() {
