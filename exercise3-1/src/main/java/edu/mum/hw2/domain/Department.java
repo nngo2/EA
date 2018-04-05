@@ -22,7 +22,7 @@ public class Department {
 	
 	private String name;
 	
-	@OneToMany(mappedBy="department", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="department", fetch = FetchType.EAGER)
 	private List<Employee> employees = new ArrayList<Employee>();
 
 	public Department() {

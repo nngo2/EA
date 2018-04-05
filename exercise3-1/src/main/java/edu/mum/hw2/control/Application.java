@@ -68,6 +68,14 @@ public class Application {
 				System.out.println("-- Employees: " + o.getEmployees().stream().map(s -> s.toString()).collect(Collectors.joining(",")));
 			}
 			
+			@SuppressWarnings("unchecked")
+			List<Office> offcies = em.createQuery("select o from Office o").getResultList();
+			
+			for (Office o : offcies) {
+				System.out.println("Office: " + o.toString());
+				System.out.println("-- Employees: " + o.getEmployees().stream().map(s -> s.toString()).collect(Collectors.joining(",")));
+			}		
+			
 			tx.commit();
 		} catch (Throwable e) {
 			if ((tx != null) && (tx.isActive())) tx.rollback();
@@ -163,8 +171,11 @@ public class Application {
 			Department d1 = new Department("IT");
 			
 			Employee e1 = new Employee("Jonathan Chris");
+			em.persist(e1);
 			o1.addEmployee(e1);
+			
 			Employee e2 = new Employee("John Chris");	
+			em.persist(e2);
 			o1.addEmployee(e2);
 			
 			d1.addEmployee(e1);
@@ -174,8 +185,11 @@ public class Application {
 			Department d2 = new Department("Account");
 			
 			Employee e3 = new Employee("Jonathan Chris II");
+			em.persist(e3);
 			o2.addEmployee(e3);
+			
 			Employee e4 = new Employee("John Chris II");		
+			em.persist(e4);
 			o2.addEmployee(e4);
 			
 			d2.addEmployee(e3);
