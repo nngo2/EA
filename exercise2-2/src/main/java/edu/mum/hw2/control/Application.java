@@ -47,8 +47,19 @@ public class Application {
 			
 			@SuppressWarnings("unchecked")
 			List<Order> orders = em.createQuery("select o from MyOrder o").getResultList();
-			
+			System.out.println("Print all orders: ");
 			for (Order o : orders) {
+				System.out.println("Date: " + o.getDate());
+				System.out.println("-- Order lines: " + o.getOrderLines().stream().map(l -> l.toString()).collect(Collectors.joining(",")));
+			}
+			
+			@SuppressWarnings("unchecked")
+			List<Order> order2 = em.createQuery("select distinct o from MyOrder o "
+					+ "join o.orderLines l "
+					+ "join l.product p "
+					+ "where p.genre like 'Fiction%'").getResultList();
+			System.out.println("Filter orders by product names: ");
+			for (Order o : order2) {
 				System.out.println("Date: " + o.getDate());
 				System.out.println("-- Order lines: " + o.getOrderLines().stream().map(l -> l.toString()).collect(Collectors.joining(",")));
 			}
@@ -72,7 +83,7 @@ public class Application {
 			List<Book> books = em.createQuery("select p from Product p "
 					+ "where type(p) = Book").getResultList();
 			
-			System.out.println("Print books: ");
+			System.out.println("Print all books: ");
 			for (Book o : books) {
 				System.out.println("Book: " + o.toString());
 			}
