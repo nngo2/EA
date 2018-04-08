@@ -37,7 +37,8 @@ public class TaskDao {
 	public List<Task> findByName(String name) {
 		Query q = entityManager.createQuery("select t from Task t "
 				+ "join t.project p "
-				+ "left join t.resources r "
+				+ "left join t.resourceBookings rb "
+				+ "left join rb.resource r "					
 				+ "where t.name like :name", Task.class);
 		q.setParameter("name", "%" + name + "%");
 		
@@ -48,7 +49,8 @@ public class TaskDao {
 	public List<Task> findByProject(Project project) {
 		Query q = entityManager.createQuery("select t from Task t "
 				+ "join t.project p "
-				+ "left join t.resources r "
+				+ "left join t.resourceBookings rb "
+				+ "left join rb.resource r "					
 				+ "where t.project.id = :projectId", Task.class);
 		q.setParameter("projectId", project.getId());
 		

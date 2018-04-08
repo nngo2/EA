@@ -8,8 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -22,10 +20,6 @@ public abstract class Resource {
 	
 	private String description;
 	
-	@ManyToOne
-	@JoinColumn(name="task_id")
-	private Task task;
-
 	public Resource() {
 		super();
 	}
@@ -49,13 +43,5 @@ public abstract class Resource {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public Task getTask() {
-		return task;
-	}
-
-	public void setTask(Task task) {
-		this.task = task;
 	}
 }

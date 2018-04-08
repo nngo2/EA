@@ -53,7 +53,8 @@ public class ProjectDao {
 			
 			Query q = entityManager.createQuery("select p from Project p "
 					+ "left join p.tasks t "
-					+ "left join t.resources r "
+					+ "left join t.resourceBookings rb "
+					+ "left join rb.resource r "					
 					+ "where  " + b.toString(), Project.class);
 			
 			return q.getResultList();
@@ -66,7 +67,8 @@ public class ProjectDao {
 	public List<Project> findByLocation(String location) {
 		Query q = entityManager.createQuery("select p from Project p "
 				+ "left join p.tasks t "
-				+ "left join t.resources r "
+				+ "left join t.resourceBookings rb "
+				+ "left join rb.resource r "					
 				+ "where p.location like :location", Project.class);
 		q.setParameter("location", "%" + location + "%");
 		
@@ -77,7 +79,8 @@ public class ProjectDao {
 	public List<Project> findByName(String name) {
 		Query q = entityManager.createQuery("select p from Project p "
 				+ "left join p.tasks t "
-				+ "left join t.resources r "
+				+ "left join t.resourceBookings rb "
+				+ "left join rb.resource r "					
 				+ "where p.name like :name", Project.class);
 		q.setParameter("name", "%" + name + "%");
 		
@@ -88,7 +91,8 @@ public class ProjectDao {
 	public List<Project> findByStatus(Status status) {
 		Query q = entityManager.createQuery("select p from Project p "
 				+ "left join p.tasks t "
-				+ "left join t.resources r "
+				+ "left join t.resourceBookings rb "
+				+ "left join rb.resource r "					
 				+ "where p.status = :status", Project.class);
 		q.setParameter("status", status);
 		

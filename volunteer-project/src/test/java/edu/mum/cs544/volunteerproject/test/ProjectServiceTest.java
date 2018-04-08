@@ -28,7 +28,9 @@ public class ProjectServiceTest {
 
 	@After
 	public void tearDown() throws Exception {
-		projectService.delete(testProject);
+		if (testProject.getId() > 0) {
+			projectService.delete(testProject);
+		}
 	}
 
 	@Test

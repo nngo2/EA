@@ -40,7 +40,7 @@ public class Task {
 	private Project project;
 	
 	@OneToMany(mappedBy="task", fetch = FetchType.EAGER)
-	private List<Resource> resources = new ArrayList<>();
+	private List<ResourceBooking> resourceBookings = new ArrayList<>();
 	
 	@OneToMany(mappedBy="task")
 	private List<VolunteerTask> volunteerTasks = new ArrayList<>();
@@ -114,18 +114,18 @@ public class Task {
 		this.project = project;
 	}
 	
-	public List<Resource> getResources() {
-		return Collections.unmodifiableList(resources);
+	public List<ResourceBooking> getResources() {
+		return Collections.unmodifiableList(resourceBookings);
 	}
 
-	public void addResource(Resource resoucre) {
-		resoucre.setTask(this);
-		resources.add(resoucre);
+	public void addResourceBooking(ResourceBooking resourceBooking) {
+		resourceBooking.setTask(this);
+		resourceBookings.add(resourceBooking);
 	}
 
-	public void removeResource(Resource resource) {
-		resource.setTask(null);
-		resources.remove(resource);
+	public void removeResourceBooking(ResourceBooking resourceBooking) {
+		resourceBooking.setTask(null);
+		resourceBookings.remove(resourceBooking);
 	}
 	
 	public List<VolunteerTask> getVolunteerTasks() {

@@ -11,15 +11,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.mum.cs544.volunteerproject.dao.ProjectDao;
 import edu.mum.cs544.volunteerproject.domain.Project;
 import edu.mum.cs544.volunteerproject.domain.Status;
 import edu.mum.cs544.volunteerproject.domain.Task;
+import edu.mum.cs544.volunteerproject.service.ProjectService;
 import edu.mum.cs544.volunteerproject.service.TaskService;
 
 public class TaskServiceTest {
 	private static DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.US);
-	private ProjectDao projectDao = new ProjectDao();
+	private ProjectService projectService = new ProjectService();
 	private TaskService taskService = new TaskService();
 	private Project testProject;
 	private Task testTask;
@@ -28,16 +28,16 @@ public class TaskServiceTest {
 	public void setUp() throws Exception {
 		testProject = new Project("Test Project 1", "Moon", df.parse("01/01/2019"), df.parse("01/04/2019"), Status.NOT_STARTED);
 		testTask = new Task("Test Task 1", "Test Task 1", df.parse("01/01/2019"), df.parse("01/31/2019"), Status.COMPLETED);
-		projectDao.create(testProject);
+		projectService.create(testProject);
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		if (testProject.getId() > 0) {
-			projectDao.delete(testProject);			
-		}
 		if (testTask.getId() > 0) {
 			taskService.delete(testTask);
+		}
+		if (testProject.getId() > 0) {
+			projectService.delete(testProject);			
 		}
 	}
 
