@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -39,7 +40,7 @@ public class Task {
 	@JoinColumn(name="project_id")
 	private Project project;
 	
-	@OneToMany(mappedBy="task", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="task", fetch = FetchType.EAGER,  cascade = {CascadeType.REMOVE})
 	private List<ResourceBooking> resourceBookings = new ArrayList<>();
 	
 	@OneToMany(mappedBy="task")
@@ -114,7 +115,7 @@ public class Task {
 		this.project = project;
 	}
 	
-	public List<ResourceBooking> getResources() {
+	public List<ResourceBooking> getResourceBookings() {
 		return Collections.unmodifiableList(resourceBookings);
 	}
 

@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -37,7 +38,7 @@ public class Project {
 	
 	private Status status = Status.NOT_STARTED;
 	
-	@OneToMany(mappedBy="project", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="project", fetch = FetchType.EAGER , cascade = {CascadeType.REMOVE})
 	private List<Task> tasks = new ArrayList<>();
 	
 	@OneToMany(mappedBy="project")

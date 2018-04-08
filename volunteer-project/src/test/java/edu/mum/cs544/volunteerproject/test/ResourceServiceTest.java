@@ -35,20 +35,29 @@ public class ResourceServiceTest {
 
 	@Test
 	public void testCreate() {
-		resourceService.create(testResource1);
-		resourceService.create(testResource2);
+		SkillSet r = new SkillSet("Java", 7);	
+		resourceService.create(r);
+		resourceService.delete(r);
+
+		r = (SkillSet)resourceService.findOne(r.getId());
 		
-		Asset r1 = (Asset)resourceService.findOne(testResource1.getId());
-		SkillSet r2 = (SkillSet)resourceService.findOne(testResource2.getId());
-	
-		assertNotNull(r1);
-		assertNotNull(r2);
-		assertTrue(r1.getConfiguration() == testResource1.getConfiguration());
-		assertTrue(r2.getYearOfExperience() == testResource2.getYearOfExperience());
+		assertTrue(r == null);
 	}
 
 	@Test
 	public void testUpdate() {
+		resourceService.create(testResource1);
+		testResource1.setCost(2000);
+		resourceService.update(testResource1);
+		
+		Asset r1 = (Asset)resourceService.findOne(testResource1.getId());
+	
+		assertNotNull(r1);
+		assertTrue(r1.getCost() == testResource1.getCost());
+	}
+	
+	@Test
+	public void testDelete() {
 		resourceService.create(testResource1);
 		testResource1.setCost(2000);
 		resourceService.update(testResource1);
