@@ -81,4 +81,16 @@ public class ProjectServiceTest {
 	public void testFindByKeywordsError() {
 		projectService.findByKeywords(new String[] {";" , "?"});
 	}
+	
+	@Test
+	public void testFindByStatus() {
+		testProject.setStatus(Status.COMPLETED);
+		projectService.create(testProject);
+		
+		List<Project> projects = projectService.findByStatus(Status.COMPLETED);
+		projects = projectService.findByStatus(Status.COMPLETED);
+		assertNotNull(projects);
+		assertTrue(projects.size() > 0);
+		assertTrue(Status.COMPLETED == projects.get(0).getStatus());
+	}
 }

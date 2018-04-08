@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 
 import edu.mum.cs544.volunteerproject.dao.ProjectDao;
 import edu.mum.cs544.volunteerproject.domain.Project;
+import edu.mum.cs544.volunteerproject.domain.Status;
 import edu.mum.cs544.volunteerproject.util.JpaUtil;
 
 public class ProjectService {
@@ -65,5 +66,9 @@ public class ProjectService {
 	
 	public List<Project> findByName(String name) {
 		return projectDao.findByName(name);
+	}
+	
+	public List<Project> findByStatus(Status status) {
+		return projectDao.findByStatus(status);
 	}
 }

@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import edu.mum.cs544.volunteerproject.domain.Project;
+import edu.mum.cs544.volunteerproject.domain.Status;
 import edu.mum.cs544.volunteerproject.util.JpaUtil;
 
 public class ProjectDao {
@@ -79,6 +80,17 @@ public class ProjectDao {
 				+ "left join t.resources r "
 				+ "where p.name like :name", Project.class);
 		q.setParameter("name", "%" + name + "%");
+		
+		return q.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Project> findByStatus(Status status) {
+		Query q = entityManager.createQuery("select p from Project p "
+				+ "left join p.tasks t "
+				+ "left join t.resources r "
+				+ "where p.status = :status", Project.class);
+		q.setParameter("status", status);
 		
 		return q.getResultList();
 	}
