@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
@@ -33,10 +34,10 @@ public abstract class Person {
 	@Temporal(TemporalType.DATE)
 	private Date dob;
 	
-	@OneToMany(mappedBy="person")
+	@OneToMany(mappedBy="person", cascade = {CascadeType.REMOVE})
 	private List<ProjectBeneficer> projectBeneficers = new ArrayList<>();
 	
-	@OneToMany(mappedBy="person")
+	@OneToMany(mappedBy="person", cascade = {CascadeType.REMOVE})
 	private List<VolunteerTask> volunteerTasks = new ArrayList<>();
 	
 	public Person() {
