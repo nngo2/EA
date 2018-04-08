@@ -49,7 +49,7 @@ public class TaskDao {
 		Query q = entityManager.createQuery("select t from Task t "
 				+ "join t.project p "
 				+ "left join t.resources r "
-				+ "where t.project.id :projectId", Task.class);
+				+ "where t.project.id = :projectId", Task.class);
 		q.setParameter("projectId", project.getId());
 		
 		return q.getResultList();

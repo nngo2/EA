@@ -3,6 +3,7 @@ package edu.mum.cs544.volunteerproject.test;
 import static org.junit.Assert.*;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Locale;
 
@@ -19,7 +20,7 @@ import edu.mum.cs544.volunteerproject.service.TaskService;
 public class TaskServiceTest {
 	private static DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.US);
 	private ProjectDao projectDao = new ProjectDao();
-	private TaskService taskService = new TaskService();	
+	private TaskService taskService = new TaskService();
 	private Project testProject;
 	private Task testTask;
 	
@@ -32,8 +33,12 @@ public class TaskServiceTest {
 
 	@After
 	public void tearDown() throws Exception {
-		projectDao.delete(testProject);
-		taskService.delete(testTask);
+		if (testProject.getId() > 0) {
+			projectDao.delete(testProject);			
+		}
+		if (testTask.getId() > 0) {
+			taskService.delete(testTask);
+		}
 	}
 
 	@Test
@@ -58,19 +63,42 @@ public class TaskServiceTest {
 		assertEquals("New Description", tasks.get(0).getDescription());
 	}
 
-//	@Test
-//	public void testDelete() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testFindByName() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testFindByProject() {
-//		fail("Not yet implemented");
-//	}
+	@Test
+	public void testDelete() {
+		Task task = null;
+		try {
+			task = new Task("Test Task 2", "Test Task 2", df.parse("01/01/2019"), df.parse("01/31/2019"), Status.COMPLETED);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		taskService.create(testProject, task);
+		taskService.delete(task);
+		
+		List<Task> tasks = taskService.findByName("Test Task 2");
+		
+		assertNotNull(tasks);
+		assertTrue(tasks.size() == 0);
+	}
+
+	@Test
+	public void testFindByName() {
+		testTask.setName("New Test Name");
+		taskService.create(testProject, testTask);
+		
+		List<Task> tasks = taskService.findByName("New Test Name");
+		
+		assertNotNull(tasks);
+		assertTrue(tasks.size() == 1);
+	}
+
+	@Test
+	public void testFindByProject() {
+		taskService.create(testProject, testTask);
+		
+		List<Task> tasks = taskService.findByProject(testProject);
+		
+		assertNotNull(tasks);
+		assertTrue(tasks.size() == 1);
+	}
 
 }
