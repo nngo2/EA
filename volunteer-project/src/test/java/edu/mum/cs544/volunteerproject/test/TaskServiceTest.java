@@ -14,6 +14,9 @@ import org.junit.Test;
 import edu.mum.cs544.volunteerproject.domain.Project;
 import edu.mum.cs544.volunteerproject.domain.Status;
 import edu.mum.cs544.volunteerproject.domain.Task;
+import edu.mum.cs544.volunteerproject.domain.Volunteer;
+import edu.mum.cs544.volunteerproject.domain.VolunteerTask;
+import edu.mum.cs544.volunteerproject.service.PersonService;
 import edu.mum.cs544.volunteerproject.service.ProjectService;
 import edu.mum.cs544.volunteerproject.service.TaskService;
 
@@ -21,6 +24,7 @@ public class TaskServiceTest {
 	private static DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.US);
 	private ProjectService projectService = new ProjectService();
 	private TaskService taskService = new TaskService();
+	private PersonService personService = new PersonService();	
 	private Project testProject;
 	private Task testTask;
 	
@@ -101,4 +105,46 @@ public class TaskServiceTest {
 		assertTrue(tasks.size() == 1);
 	}
 
+	private Volunteer addVolunteerToTask(Task task) throws ParseException {
+		Volunteer volunteer = new Volunteer("NO SQL Developer, with 7+ Java yoe", "Nanny", "Chris", df.parse("01/01/1988"));
+		personService.create(volunteer);
+		taskService.addVolunteer(task, volunteer);
+		return volunteer;
+	}
+	
+	@Test
+	public void testAddVolunteer() throws ParseException  {
+		taskService.create(testProject, testTask);
+		
+		Volunteer volunteer = addVolunteerToTask(testTask);
+		
+		Task task = taskService.findOne(testTask.getId());
+		
+		assertNotNull(task);
+		
+		VolunteerTask vt = task.getVolunteerTasks().get(0);
+		
+		assertNotNull(vt);
+		assertTrue(vt.getTask().getName().equals(testTask.getName()));
+		
+		taskService.removeVolunteer(vt);
+		personService.delete(volunteer);
+	}
+	
+	@Test
+	public void testRemoveVolunteer() throws ParseException {
+		taskService.create(testProject, testTask);
+		
+		Volunteer volunteer = addVolunteerToTask(testTask);
+		
+		taskService.removeVolunteer(testTask, volunteer);
+		
+		Task task = taskService.findOne(testTask.getId());
+		
+		assertNotNull(task);
+		assertTrue(task.getVolunteerTasks().size() == 0);
+
+		personService.delete(volunteer);
+	}
+	
 }
