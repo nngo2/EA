@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context.xsd">
+			
+	<!-- 
+	<context:component-scan base-package="cs544.exercise5_2" /> 
+	<context:annotation-config /> 
+	-->
+	<bean id="bookService" class="cs544.exercise5_2.BookService">
+		<constructor-arg>
+			<list>
+				<bean id="ebook" class="cs544.exercise5_2.EBooks"></bean>
+				<bean id="barne" class="cs544.exercise5_2.BarnesAndNoble"></bean>
+				<bean id="amazon" class="cs544.exercise5_2.Amazon"></bean>
+				<bean id="border" class="cs544.exercise5_2.Borders"></bean>
+			</list>
+		</constructor-arg>
+	</bean>
+
+</beans>
