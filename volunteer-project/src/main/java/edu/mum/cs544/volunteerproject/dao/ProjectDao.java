@@ -6,7 +6,10 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import edu.mum.cs544.volunteerproject.domain.Asset;
 import edu.mum.cs544.volunteerproject.domain.Project;
+import edu.mum.cs544.volunteerproject.domain.Resource;
+import edu.mum.cs544.volunteerproject.domain.SkillSet;
 import edu.mum.cs544.volunteerproject.domain.Status;
 import edu.mum.cs544.volunteerproject.util.JpaUtil;
 
@@ -95,6 +98,50 @@ public class ProjectDao {
 				+ "left join rb.resource r "					
 				+ "where p.status = :status", Project.class);
 		q.setParameter("status", status);
+		
+		return q.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Project> findByResource(Resource resource) {
+		Query q = entityManager.createQuery("select p from Project p "
+				+ "left join p.tasks t "
+				+ "left join t.resourceBookings rb "
+				+ "left join rb.resource r "					
+				+ "where r.id = :id", Project.class);
+		q.setParameter("id", resource.getId());
+		
+		return q.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Project> findBySkillSet(SkillSet skillset) {
+		Query q = entityManager.createQuery("select p from Project p "
+				+ "left join p.tasks t "
+				+ "left join t.resourceBookings rb "
+				+ "left join treat(rb.resource as SkillSet) r "					
+				+ "where r.description like :description "
+				+ "and (:yoe is null or r.yearOfExperience = :yoe)", Project.class);
+		q.setParameter("description", "%" + skillset.getDescription() + "%");
+		q.setParameter("yoe", skillset.getYearOfExperience());
+				
+		return q.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Project> findByAsset(Asset asset) {
+		Query q = entityManager.createQuery("select p from Project p "
+				+ "left join p.tasks t "
+				+ "left join t.resourceBookings rb "
+				+ "left join treat(rb.resource as Asset) r "					
+				+ "where (:assetType is null or r.assetType = :assetType) "
+				+ "and (:model is null or r.model = :model) " 
+				+ "and (:configuration is null or r.configuration = :configuration)"
+				+ "and (:cost is null or r.cost = :cost)", Project.class);
+		q.setParameter("assetType", asset.getAssetType());
+		q.setParameter("model", asset.getModel());
+		q.setParameter("configuration", asset.getConfiguration());
+		q.setParameter("cost", asset.getCost());
 		
 		return q.getResultList();
 	}

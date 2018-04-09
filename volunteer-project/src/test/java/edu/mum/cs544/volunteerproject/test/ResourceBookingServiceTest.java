@@ -37,8 +37,8 @@ public class ResourceBookingServiceTest {
 	public void setUp() throws Exception {
 		testProject = new Project("Test Project 1", "Moon", df.parse("01/01/2019"), df.parse("01/04/2019"), Status.NOT_STARTED);
 		testTask = new Task("Test Task 1", "Test Task 1", df.parse("01/01/2019"), df.parse("01/31/2019"), Status.NOT_STARTED);
-		testResource1 = new Asset("Laptop", 1000, "Lenovo T570", "Core I8, 8GB");
-		testResource2 = new SkillSet("C++", 7);		
+		testResource1 = new Asset("Laptop", 1000.00, "Lenovo T570", "Core I8, 8GB");
+		testResource2 = new SkillSet("C++", 7.00);		
 		resourceBooking1 = new ResourceBooking(testTask, testResource1, 2);
 		resourceBooking2 = new ResourceBooking(testTask, testResource2, 3);
 		resourceService.create(testResource1);

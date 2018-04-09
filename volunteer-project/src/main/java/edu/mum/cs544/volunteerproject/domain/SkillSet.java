@@ -6,22 +6,22 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("SkillSet")
 public class SkillSet extends Resource {
-	private double yearOfExperience;
+	private Double yearOfExperience;
 	
 	public SkillSet() {
 		super();
 	}
 
-	public SkillSet(String description, double yearOfExperience) {
+	public SkillSet(String description, Double yearOfExperience) {
 		super(description);
 		this.yearOfExperience = yearOfExperience;
 	}
 
-	public double getYearOfExperience() {
+	public Double getYearOfExperience() {
 		return yearOfExperience;
 	}
 
-	public void setYearOfExperience(double yearOfExperience) {
+	public void setYearOfExperience(Double yearOfExperience) {
 		this.yearOfExperience = yearOfExperience;
 	}
 }

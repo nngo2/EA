@@ -6,9 +6,12 @@ import javax.persistence.EntityManager;
 
 import edu.mum.cs544.volunteerproject.dao.BeneficierDao;
 import edu.mum.cs544.volunteerproject.dao.ProjectDao;
+import edu.mum.cs544.volunteerproject.domain.Asset;
 import edu.mum.cs544.volunteerproject.domain.Beneficier;
 import edu.mum.cs544.volunteerproject.domain.Project;
 import edu.mum.cs544.volunteerproject.domain.ProjectBeneficier;
+import edu.mum.cs544.volunteerproject.domain.Resource;
+import edu.mum.cs544.volunteerproject.domain.SkillSet;
 import edu.mum.cs544.volunteerproject.domain.Status;
 import edu.mum.cs544.volunteerproject.util.JpaUtil;
 
@@ -104,5 +107,17 @@ public class ProjectService {
 			beneficierDao.delete(projectBeneficier);
 			entityManager.getTransaction().commit();
 		}
+	}
+	
+	public List<Project> findByResource(Resource resource) {
+		return projectDao.findByResource(resource);
+	}
+	
+	public List<Project> findByAsset(Asset asset) {
+		return projectDao.findByAsset(asset);
+	}	
+	
+	public List<Project> findBySkillSet(SkillSet skillset) {
+		return projectDao.findBySkillSet(skillset);
 	}
 }

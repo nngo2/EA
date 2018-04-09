@@ -19,8 +19,8 @@ public class ResourceServiceTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		testResource1 = new Asset("Laptop", 1000, "Lenovo T570", "Core I8, 8GB");
-		testResource2 = new SkillSet("C++", 7);	
+		testResource1 = new Asset("Laptop", 1000.00, "Lenovo T570", "Core I8, 8GB");
+		testResource2 = new SkillSet("C++", 7.00);	
 	}
 
 	@After
@@ -35,7 +35,7 @@ public class ResourceServiceTest {
 
 	@Test
 	public void testCreate() {
-		SkillSet r = new SkillSet("Java", 7);	
+		SkillSet r = new SkillSet("Java", 7.00);	
 		resourceService.create(r);
 		resourceService.delete(r);
 
@@ -47,7 +47,7 @@ public class ResourceServiceTest {
 	@Test
 	public void testUpdate() {
 		resourceService.create(testResource1);
-		testResource1.setCost(2000);
+		testResource1.setCost(2000.00);
 		resourceService.update(testResource1);
 		
 		Asset r1 = (Asset)resourceService.findOne(testResource1.getId());
@@ -59,7 +59,7 @@ public class ResourceServiceTest {
 	@Test
 	public void testDelete() {
 		resourceService.create(testResource1);
-		testResource1.setCost(2000);
+		testResource1.setCost(2000.00);
 		resourceService.update(testResource1);
 		
 		Asset r1 = (Asset)resourceService.findOne(testResource1.getId());

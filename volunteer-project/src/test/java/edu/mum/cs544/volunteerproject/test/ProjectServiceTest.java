@@ -11,17 +11,28 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import edu.mum.cs544.volunteerproject.domain.Asset;
+import edu.mum.cs544.volunteerproject.domain.AssetType;
 import edu.mum.cs544.volunteerproject.domain.Beneficier;
 import edu.mum.cs544.volunteerproject.domain.Project;
 import edu.mum.cs544.volunteerproject.domain.ProjectBeneficier;
+import edu.mum.cs544.volunteerproject.domain.ResourceBooking;
+import edu.mum.cs544.volunteerproject.domain.SkillSet;
 import edu.mum.cs544.volunteerproject.domain.Status;
+import edu.mum.cs544.volunteerproject.domain.Task;
 import edu.mum.cs544.volunteerproject.service.PersonService;
 import edu.mum.cs544.volunteerproject.service.ProjectService;
+import edu.mum.cs544.volunteerproject.service.ResourceBookingService;
+import edu.mum.cs544.volunteerproject.service.ResourceService;
+import edu.mum.cs544.volunteerproject.service.TaskService;
 
 public class ProjectServiceTest {
 	private static DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.US);
 	private ProjectService projectService = new ProjectService();
+	private TaskService taskService = new TaskService();	
 	private PersonService personService = new PersonService();
+	private ResourceService resourceService = new ResourceService();
+	private ResourceBookingService resourceBookingService = new ResourceBookingService();
 	private Project testProject;
 	private Beneficier beneficier;
 	private ProjectBeneficier projectBeneficier;
@@ -138,5 +149,77 @@ public class ProjectServiceTest {
 		
 		personService.delete(b);
 		projectService.delete(p);
+	}
+	
+	@Test
+	public void findByAsset() throws ParseException {
+		// arrange test data
+		Project p1 = new Project("Test Project 11", "Moon", df.parse("01/01/2019"), df.parse("01/04/2019"), Status.NOT_STARTED);
+		projectService.create(p1);
+		Project p2 = new Project("Test Project 22", "Moon", df.parse("01/01/2019"), df.parse("01/04/2019"), Status.NOT_STARTED);
+		projectService.create(p2);
+		
+		Task t1 = new Task("Test Task 11", "Test Task 11", df.parse("01/01/2019"), df.parse("01/31/2019"), Status.NOT_STARTED);
+		taskService.create(p1, t1);
+		Task t2 = new Task("Test Task 22", "Test Task 22", df.parse("01/01/2019"), df.parse("01/31/2019"), Status.NOT_STARTED);
+		taskService.create(p2, t2);
+		
+		Asset r1 = new Asset("Laptop", 1000.00, "Lenovo T570", "Core I8, 8GB", AssetType.LAPTOP);
+		resourceService.create(r1);
+		Asset r2 = new Asset("Desktop", 1000.00, "Dell Server", "Core I8, 64GB", AssetType.DESTOP);
+		resourceService.create(r2);
+	
+		ResourceBooking rb1 = new ResourceBooking(t1, r1, 2);
+		resourceBookingService.create(t1, rb1);
+		ResourceBooking rb2 = new ResourceBooking(t2, r2, 3);
+		resourceBookingService.create(t2, rb2);
+		
+		// action
+		List<Project> result =  projectService.findByAsset(r1);
+		
+		// verification
+		assertTrue(result != null && result.size() == 1);
+		
+		// clean up
+		projectService.delete(p1);
+		projectService.delete(p2);
+		resourceService.delete(r1);
+		resourceService.delete(r2);
+	}
+	
+	@Test
+	public void findBySkillSet() throws ParseException {
+		// arrange test data
+		Project p1 = new Project("Test Project 11", "Moon", df.parse("01/01/2019"), df.parse("01/04/2019"), Status.NOT_STARTED);
+		projectService.create(p1);
+		Project p2 = new Project("Test Project 22", "Moon", df.parse("01/01/2019"), df.parse("01/04/2019"), Status.NOT_STARTED);
+		projectService.create(p2);
+		
+		Task t1 = new Task("Test Task 11", "Test Task 11", df.parse("01/01/2019"), df.parse("01/31/2019"), Status.NOT_STARTED);
+		taskService.create(p1, t1);
+		Task t2 = new Task("Test Task 22", "Test Task 22", df.parse("01/01/2019"), df.parse("01/31/2019"), Status.NOT_STARTED);
+		taskService.create(p2, t2);
+		
+		SkillSet r1 = new SkillSet("C++", 8.5);
+		resourceService.create(r1);
+		SkillSet r2 = new SkillSet("Java", 9.5);
+		resourceService.create(r2);
+	
+		ResourceBooking rb1 = new ResourceBooking(t1, r1, 2);
+		resourceBookingService.create(t1, rb1);
+		ResourceBooking rb2 = new ResourceBooking(t2, r2, 3);
+		resourceBookingService.create(t2, rb2);
+		
+		// action
+		List<Project> result =  projectService.findBySkillSet(r1);
+		
+		// verification
+		assertTrue(result != null && result.size() == 1);
+		
+		// clean up
+		projectService.delete(p1);
+		projectService.delete(p2);
+		resourceService.delete(r1);
+		resourceService.delete(r2);
 	}
 }
