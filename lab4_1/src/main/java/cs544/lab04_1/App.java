@@ -56,6 +56,54 @@ public class App {
 						flight.getOrigin().getCity(), flight.getOrigin().getCountry(), flight.getDepartureDate(), flight.getDepartureTime(),
 						flight.getDestination().getCity(), flight.getDestination().getCountry(), flight.getArrivalDate(), flight.getArrivalTime()));
 			}
+			
+			@SuppressWarnings("unchecked")
+			List<Object[]> flightCnts = em.createQuery(
+					"select a.name, count(f) from Airline a "
+					+ "join a.flights f "
+					+ "join f.airplane p "
+					+ "join f.origin o "
+					+ "join f.destination d "
+					+ "where p.capacity > 400 and o.country = 'USA' "
+					+ "group by a.name").getResultList();
+			logger.trace("Count all the flights - Flights capacity > 400:");
+			for (Object[] airline : flightCnts) {
+				logger.trace(String.format("%20s %5s", airline[0], airline[1]));
+			}
+			
+			@SuppressWarnings("unchecked")
+			List<Object[]> flightCnt2s = em.createQuery(
+					"select a.name, count(f) from Airline a "
+					+ "join a.flights f "			
+					+ "group by a.name "
+					+ "having count(f) >= 2").getResultList();
+			logger.trace("Count all the flights - Flights count >= 2:");
+			for (Object[] airline : flightCnt2s) {
+				logger.trace(String.format("%20s %5s", airline[0], airline[1]));
+			}
+			
+			@SuppressWarnings("unchecked")
+			List<Object[]> flightCnt3s = em.createQuery(
+					"select a.name, count(f) from Airline a "
+					+ "join a.flights f "
+					+ "where size(a.flights) >= 2 "			
+					+ "group by a.name").getResultList();
+			logger.trace("Count all the flights - Flights count >= 2:");
+			for (Object[] airline : flightCnt3s) {
+				logger.trace(String.format("%20s %5s", airline[0], airline[1]));
+			}
+			
+			@SuppressWarnings("unchecked")
+			List<Object[]> flightCnt4s = em.createQuery(
+					"select a.name, count(f) from Airline a "
+					+ "join a.flights f "
+					+ "where (select count(f) from Flight f2 where f2.id = f.id) >= 2 "			
+					+ "group by a.name").getResultList();
+			logger.trace("Count all the flights - Flights count >= 2:");
+			for (Object[] airline : flightCnt4s) {
+				logger.trace(String.format("%20s %5s", airline[0], airline[1]));
+			}			
+			
 			tx.commit();
 		} catch (PersistenceException e) {
 			if (tx != null) {
