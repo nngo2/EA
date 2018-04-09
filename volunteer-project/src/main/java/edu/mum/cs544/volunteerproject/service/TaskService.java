@@ -88,4 +88,8 @@ public class TaskService {
 			entityManager.getTransaction().commit();
 		}
 	}
+	
+	public List<Task> findAllTasksWithVolunteers() {
+		return taskDao.findAllTasksWithVolunteers();
+	}
 }

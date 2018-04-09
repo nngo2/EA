@@ -147,4 +147,38 @@ public class TaskServiceTest {
 		personService.delete(volunteer);
 	}
 	
+	@Test
+	public void findByVolunteer() throws ParseException {
+		// arrange test data
+		Project p1 = new Project("Test Project 11", "Moon", df.parse("01/01/2019"), df.parse("01/04/2019"), Status.NOT_STARTED);
+		projectService.create(p1);
+		Project p2 = new Project("Test Project 22", "Moon", df.parse("01/01/2019"), df.parse("01/04/2019"), Status.NOT_STARTED);
+		projectService.create(p2);
+		
+		Task t1 = new Task("Test Task 11", "Test Task 11", df.parse("01/01/2019"), df.parse("01/31/2019"), Status.NOT_STARTED);
+		taskService.create(p1, t1);
+		Task t2 = new Task("Test Task 22", "Test Task 22", df.parse("01/01/2019"), df.parse("01/31/2019"), Status.NOT_STARTED);
+		taskService.create(p1, t2);
+		Task t3 = new Task("Test Task 33", "Test Task 33", df.parse("01/01/2019"), df.parse("01/31/2019"), Status.NOT_STARTED);
+		taskService.create(p2, t3);
+		
+		Volunteer v1 = new Volunteer("NO SQL Developer, with 7+ Java yoe", "Nanny", "Chris", df.parse("01/01/1988"));
+		personService.create(v1);
+		taskService.addVolunteer(t1, v1);	
+		
+		Volunteer v2 = new Volunteer("Java EE Architect, with 7+ Java yoe", "Tommy", "White", df.parse("01/01/1988"));
+		personService.create(v2);
+		taskService.addVolunteer(t2, v2);		
+		
+		// action
+		List<Task> result =  taskService.findAllTasksWithVolunteers();
+		
+		// verification
+		assertTrue(result != null && result.size() == 2);
+		
+		// clean up
+		projectService.delete(p1);
+		projectService.delete(p2);
+	}
+	
 }

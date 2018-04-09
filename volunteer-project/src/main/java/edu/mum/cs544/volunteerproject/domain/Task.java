@@ -43,7 +43,7 @@ public class Task {
 	@OneToMany(mappedBy="task", fetch = FetchType.EAGER,  cascade = {CascadeType.REMOVE})
 	private List<ResourceBooking> resourceBookings = new ArrayList<>();
 	
-	@OneToMany(mappedBy="task")
+	@OneToMany(mappedBy="task", cascade = {CascadeType.REMOVE})
 	private List<VolunteerTask> volunteerTasks = new ArrayList<>();
 
 	public Task() {

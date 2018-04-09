@@ -120,4 +120,8 @@ public class ProjectService {
 	public List<Project> findBySkillSet(SkillSet skillset) {
 		return projectDao.findBySkillSet(skillset);
 	}
+	
+	public List<Project> findAllProjectsWithVolunteers() {
+		return projectDao.findAllProjectsWithVolunteers();
+	}
 }

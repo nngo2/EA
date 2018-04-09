@@ -104,7 +104,7 @@ public class ProjectDao {
 	
 	@SuppressWarnings("unchecked")
 	public List<Project> findByResource(Resource resource) {
-		Query q = entityManager.createQuery("select p from Project p "
+		Query q = entityManager.createQuery("select distinct p from Project p "
 				+ "left join p.tasks t "
 				+ "left join t.resourceBookings rb "
 				+ "left join rb.resource r "					
@@ -116,7 +116,7 @@ public class ProjectDao {
 	
 	@SuppressWarnings("unchecked")
 	public List<Project> findBySkillSet(SkillSet skillset) {
-		Query q = entityManager.createQuery("select p from Project p "
+		Query q = entityManager.createQuery("select distinct p from Project p "
 				+ "left join p.tasks t "
 				+ "left join t.resourceBookings rb "
 				+ "left join treat(rb.resource as SkillSet) r "					
@@ -130,7 +130,7 @@ public class ProjectDao {
 	
 	@SuppressWarnings("unchecked")
 	public List<Project> findByAsset(Asset asset) {
-		Query q = entityManager.createQuery("select p from Project p "
+		Query q = entityManager.createQuery("select distinct p from Project p "
 				+ "left join p.tasks t "
 				+ "left join t.resourceBookings rb "
 				+ "left join treat(rb.resource as Asset) r "					
@@ -142,6 +142,17 @@ public class ProjectDao {
 		q.setParameter("model", asset.getModel());
 		q.setParameter("configuration", asset.getConfiguration());
 		q.setParameter("cost", asset.getCost());
+		
+		return q.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Project> findAllProjectsWithVolunteers() {
+		Query q = entityManager.createQuery("select distinct p from Project p "
+				+ "left join p.tasks t "
+				+ "left join t.volunteerTasks v "
+				+ "where size(t.volunteerTasks) > 0 "
+				+ "order by t.startDate", Project.class);
 		
 		return q.getResultList();
 	}

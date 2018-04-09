@@ -43,10 +43,11 @@ public class PersonServiceTest {
 		personService.create(volunteer);
 		personService.create(beneficier);
 		
-		List<Person> list = personService.findAll();
+		Volunteer v = (Volunteer) personService.findOne(volunteer.getId());
+		assertNotNull(v);
 		
-		assertNotNull(list);
-		assertTrue(list.size() == 2);
+		Beneficier b = (Beneficier) personService.findOne(beneficier.getId());
+		assertNotNull(b);	
 	}
 
 	@Test
@@ -89,7 +90,7 @@ public class PersonServiceTest {
 		List<Volunteer> list = personService.findAllVolunteers();
 		
 		assertNotNull(list);
-		assertTrue(list.size() == 1);
+		assertTrue(list.size() > 1);
 	}
 
 }

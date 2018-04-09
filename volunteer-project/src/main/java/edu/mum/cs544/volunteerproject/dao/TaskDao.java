@@ -35,7 +35,7 @@ public class TaskDao {
 	
 	@SuppressWarnings("unchecked")
 	public List<Task> findByName(String name) {
-		Query q = entityManager.createQuery("select t from Task t "
+		Query q = entityManager.createQuery("select distinct t from Task t "
 				+ "join t.project p "
 				+ "left join t.resourceBookings rb "
 				+ "left join rb.resource r "					
@@ -47,12 +47,23 @@ public class TaskDao {
 	
 	@SuppressWarnings("unchecked")
 	public List<Task> findByProject(Project project) {
-		Query q = entityManager.createQuery("select t from Task t "
+		Query q = entityManager.createQuery("select distinct t from Task t "
 				+ "join t.project p "
 				+ "left join t.resourceBookings rb "
 				+ "left join rb.resource r "					
 				+ "where t.project.id = :projectId", Task.class);
 		q.setParameter("projectId", project.getId());
+		
+		return q.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Task> findAllTasksWithVolunteers() {
+		Query q = entityManager.createQuery("select distinct t from Task t "
+				+ "join t.project p "
+				+ "left join t.volunteerTasks v "
+				+ "where size(t.volunteerTasks) > 0 "
+				+ "order by t.startDate", Task.class);
 		
 		return q.getResultList();
 	}
