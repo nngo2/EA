@@ -4,14 +4,18 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import edu.mum.cs544.volunteerproject.dao.BeneficierDao;
 import edu.mum.cs544.volunteerproject.dao.ProjectDao;
+import edu.mum.cs544.volunteerproject.domain.Beneficier;
 import edu.mum.cs544.volunteerproject.domain.Project;
+import edu.mum.cs544.volunteerproject.domain.ProjectBeneficier;
 import edu.mum.cs544.volunteerproject.domain.Status;
 import edu.mum.cs544.volunteerproject.util.JpaUtil;
 
 public class ProjectService {
 	private EntityManager entityManager = JpaUtil.getEntityManager();
 	private ProjectDao projectDao = new ProjectDao();
+	private BeneficierDao beneficierDao = new BeneficierDao();
 	
 	public void create(Project project) {
 		if (project == null) {
@@ -70,5 +74,35 @@ public class ProjectService {
 	
 	public List<Project> findByStatus(Status status) {
 		return projectDao.findByStatus(status);
+	}
+	
+	public void addBeneficer(Project project, Beneficier beneficier) {
+		if (project == null || beneficier == null) {
+			throw new IllegalArgumentException();
+		}
+		entityManager.getTransaction().begin();
+		ProjectBeneficier projectBeneficer = new ProjectBeneficier(beneficier, project);
+		beneficierDao.create(projectBeneficer);
+		entityManager.getTransaction().commit();
+	}
+	
+	public void removeBeneficer(Project project, Beneficier beneficier) {
+		if (project == null || beneficier == null) {
+			throw new IllegalArgumentException();
+		}
+		entityManager.getTransaction().begin();
+		ProjectBeneficier projectBeneficer = beneficierDao.findByProjectAndBeneficier(project, beneficier);
+		if (projectBeneficer != null) {
+			beneficierDao.delete(projectBeneficer);
+		}
+		entityManager.getTransaction().commit();
+	}
+	
+	public void removeBeneficier(ProjectBeneficier projectBeneficier) {
+		if (projectBeneficier != null) {
+			entityManager.getTransaction().begin();
+			beneficierDao.delete(projectBeneficier);
+			entityManager.getTransaction().commit();
+		}
 	}
 }

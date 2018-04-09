@@ -19,19 +19,19 @@ import edu.mum.cs544.volunteerproject.service.PersonService;
 public class PersonServiceTest {
 	private static DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.US);
 	private PersonService personService = new PersonService();
-	private Beneficier benefitcier;
+	private Beneficier beneficier;
 	private Volunteer volunteer;
 
 	@Before
 	public void setUp() throws Exception {
-		benefitcier = new Beneficier("John", "Smith", df.parse("1/1/1990"));
+		beneficier = new Beneficier("John", "Smith", df.parse("1/1/1990"));
 		volunteer = new Volunteer("Very goood C++ developer", "Adam", "Eastmoreland", df.parse("1/1/1990"));
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		if (benefitcier.getId() > 0) {
-			personService.delete(benefitcier);
+		if (beneficier.getId() > 0) {
+			personService.delete(beneficier);
 		}
 		if (volunteer.getId() > 0) {
 			personService.delete(volunteer);
@@ -41,7 +41,7 @@ public class PersonServiceTest {
 	@Test
 	public void testCreate() {
 		personService.create(volunteer);
-		personService.create(benefitcier);
+		personService.create(beneficier);
 		
 		List<Person> list = personService.findAll();
 		
@@ -73,7 +73,7 @@ public class PersonServiceTest {
 	@Test
 	public void testFindAllBeneficiers() {
 		personService.create(volunteer);
-		personService.create(benefitcier);
+		personService.create(beneficier);
 		
 		List<Beneficier> list = personService.findAllBeneficiers();
 		
@@ -84,7 +84,7 @@ public class PersonServiceTest {
 	@Test
 	public void testFindAllVolunteers() {
 		personService.create(volunteer);
-		personService.create(benefitcier);
+		personService.create(beneficier);
 		
 		List<Volunteer> list = personService.findAllVolunteers();
 		

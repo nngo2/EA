@@ -38,11 +38,11 @@ public class Project {
 	
 	private Status status = Status.NOT_STARTED;
 	
-	@OneToMany(mappedBy="project", fetch = FetchType.EAGER , cascade = {CascadeType.REMOVE})
+	@OneToMany(mappedBy="project", fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE})
 	private List<Task> tasks = new ArrayList<>();
 	
-	@OneToMany(mappedBy="project")
-	private List<ProjectBeneficer> projectBeneficers = new ArrayList<>();
+	@OneToMany(mappedBy="project", fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE})
+	private List<ProjectBeneficier> projectBeneficers = new ArrayList<>();
 	
 	public Project() {
 		super();
@@ -127,16 +127,16 @@ public class Project {
 		tasks.remove(task);
 	}
 	
-	public List<ProjectBeneficer> getProjectBeneficers() {
+	public List<ProjectBeneficier> getProjectBeneficers() {
 		return Collections.unmodifiableList(projectBeneficers);
 	}
 	
-	public void addProjectBeneficer(ProjectBeneficer projectBeneficer) {
+	public void addProjectBeneficer(ProjectBeneficier projectBeneficer) {
 		projectBeneficer.setProject(this);
 		projectBeneficers.add(projectBeneficer);
 	}
 
-	public void removeProjectBeneficer(ProjectBeneficer projectBeneficer) {
+	public void removeProjectBeneficer(ProjectBeneficier projectBeneficer) {
 		projectBeneficer.setProject(null);
 		projectBeneficers.remove(projectBeneficer);
 	}

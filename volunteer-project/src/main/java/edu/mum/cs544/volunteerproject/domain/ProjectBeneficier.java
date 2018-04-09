@@ -10,7 +10,7 @@ import javax.persistence.SequenceGenerator;
 
 @Entity
 @SequenceGenerator(name="projectBeneficerSeq", sequenceName="PROJECT_BENEFICER_SEQUENCE", allocationSize=50)
-public class ProjectBeneficer {
+public class ProjectBeneficier {
 	@Id @GeneratedValue(generator = "projectBeneficerSeq", strategy=GenerationType.SEQUENCE)
 	private int id;
 	
@@ -22,11 +22,11 @@ public class ProjectBeneficer {
 	@JoinColumn(name="project_id")
 	private Project project;
 	
-	public ProjectBeneficer() {
+	public ProjectBeneficier() {
 		super();
 	}
 
-	public ProjectBeneficer(Person person, Project project) {
+	public ProjectBeneficier(Person person, Project project) {
 		super();
 		this.person = person;
 		this.project = project;

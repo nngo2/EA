@@ -35,7 +35,7 @@ public abstract class Person {
 	private Date dob;
 	
 	@OneToMany(mappedBy="person", cascade = {CascadeType.REMOVE})
-	private List<ProjectBeneficer> projectBeneficers = new ArrayList<>();
+	private List<ProjectBeneficier> projectBeneficiers = new ArrayList<>();
 	
 	@OneToMany(mappedBy="person", cascade = {CascadeType.REMOVE})
 	private List<VolunteerTask> volunteerTasks = new ArrayList<>();
@@ -83,18 +83,18 @@ public abstract class Person {
 		this.dob = dob;
 	}
 	
-	public List<ProjectBeneficer> getProjectBeneficers() {
-		return Collections.unmodifiableList(projectBeneficers);
+	public List<ProjectBeneficier> getProjectBeneficers() {
+		return Collections.unmodifiableList(projectBeneficiers);
 	}
 	
-	public void addProjectBeneficer(ProjectBeneficer projectBeneficer) {
+	public void addProjectBeneficer(ProjectBeneficier projectBeneficer) {
 		projectBeneficer.setPerson(this);
-		projectBeneficers.add(projectBeneficer);
+		projectBeneficiers.add(projectBeneficer);
 	}
 
-	public void removeProjectBeneficer(ProjectBeneficer projectBeneficer) {
+	public void removeProjectBeneficer(ProjectBeneficier projectBeneficer) {
 		projectBeneficer.setPerson(null);
-		projectBeneficers.remove(projectBeneficer);
+		projectBeneficiers.remove(projectBeneficer);
 	}
 	
 	public List<VolunteerTask> getVolunteerTasks() {
