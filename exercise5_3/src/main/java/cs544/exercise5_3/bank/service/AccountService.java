@@ -3,7 +3,6 @@ package cs544.exercise5_3.bank.service;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import cs544.exercise5_3.bank.dao.IAccountDAO;
@@ -25,13 +24,6 @@ public class AccountService implements IAccountService {
 	
 	@Autowired
 	private ILogger logger;
-
-	public AccountService(){
-		//accountDAO=new AccountDAO();
-		//currencyConverter= new CurrencyConverter();
-		//jmsSender =  new JMSSender();
-		//logger = new Logger();
-	}
 
 	public Account createAccount(long accountNumber, String customerName) {
 		Account account = new Account(accountNumber);
