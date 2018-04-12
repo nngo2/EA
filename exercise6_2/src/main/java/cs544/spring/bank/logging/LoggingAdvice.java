@@ -31,9 +31,14 @@ public class LoggingAdvice {
 		return retVal;
 	}
 	
-	@After("execution(* *..JMSSender.sendJMSMessage(..))")
-	public void afterJMSMessageSent(JoinPoint joinPoint) {
-		logger.log("JMS Message sent = " + joinPoint.getArgs()[0]);
-	}
+//	@After("execution(* *..JMSSender.sendJMSMessage(..))")
+//	public void afterJMSMessageSent(JoinPoint joinPoint) {
+//		logger.log("JMS Message sent = " + joinPoint.getArgs()[0]);
+//	}
+	
+	@After("execution(* *..JMSSender.sendJMSMessage(String)) && args(text)")
+	public void afterJMSMessageSent(JoinPoint joinPoint, String text) {
+		logger.log("JMS Message sent = " + text);
+	}	
 
 }
