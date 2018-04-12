@@ -2,8 +2,8 @@ package cs544.exercise7_1.bank.service;
 
 import java.util.Collection;
 
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
+import javax.transaction.Transactional;
+import javax.transaction.Transactional.TxType;
 
 import cs544.exercise7_1.bank.dao.IAccountDAO;
 import cs544.exercise7_1.bank.domain.Account;
@@ -29,7 +29,7 @@ public class AccountService implements IAccountService {
 		this.logger = logger;
 	}
 
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(value=TxType.REQUIRED)
 	public Account createAccount(long accountNumber, String customerName) {
         Account account = new Account(accountNumber);
         Customer customer = new Customer(customerName);
@@ -39,7 +39,7 @@ public class AccountService implements IAccountService {
         return account;
     }
 
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(value=TxType.REQUIRED)
     public void deposit(long accountNumber, double amount) {   
         Account account = accountDAO.loadAccount(accountNumber);
         account.deposit(amount);
@@ -52,19 +52,19 @@ public class AccountService implements IAccountService {
         }
     }
 
-	@Transactional(propagation=Propagation.REQUIRED)	
+	@Transactional(value=TxType.REQUIRED)
     public Account getAccount(long accountNumber) {     
         Account account = accountDAO.loadAccount(accountNumber);
         return account;
     }
 
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(value=TxType.REQUIRED)
     public Collection<Account> getAllAccounts() {    
         Collection<Account> accounts = accountDAO.getAccounts();
         return accounts;
     }
 
-	@Transactional(propagation=Propagation.REQUIRED)	
+	@Transactional(value=TxType.REQUIRED)
     public void withdraw(long accountNumber, double amount) {      
         Account account = accountDAO.loadAccount(accountNumber);
         account.withdraw(amount);
@@ -73,7 +73,7 @@ public class AccountService implements IAccountService {
                 + " , amount= " + amount);
     }
 
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(value=TxType.REQUIRED)
     public void depositEuros(long accountNumber, double amount) {
         Account account = accountDAO.loadAccount(accountNumber);
         double amountDollars = currencyConverter.euroToDollars(amount);
@@ -87,7 +87,7 @@ public class AccountService implements IAccountService {
         }
     }
 
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(value=TxType.REQUIRED)
     public void withdrawEuros(long accountNumber, double amount) {
         Account account = accountDAO.loadAccount(accountNumber);
         double amountDollars = currencyConverter.euroToDollars(amount);
@@ -97,7 +97,7 @@ public class AccountService implements IAccountService {
                 + accountNumber + " , amount= " + amount);
     }
 
-	@Transactional(propagation=Propagation.REQUIRED)	
+	@Transactional(value=TxType.REQUIRED)
     public void transferFunds(long fromAccountNumber, long toAccountNumber,
             double amount, String description) {
 

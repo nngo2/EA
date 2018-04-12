@@ -2,9 +2,10 @@ package cs544.exercise7_1.bank.dao;
 
 import java.util.Collection;
 
+import javax.transaction.Transactional;
+import javax.transaction.Transactional.TxType;
+
 import org.hibernate.SessionFactory;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import cs544.exercise7_1.bank.domain.Account;
 
@@ -33,12 +34,12 @@ public class AccountDAOHibernate implements IAccountDAO {
 		return (Account) sessionFactory.getCurrentSession().get(Account.class, accountnumber);
 	}
 
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(value=TxType.REQUIRED)
 	public void saveAccount(Account account) {
 		sessionFactory.getCurrentSession().persist(account);
 	}
 	
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(value=TxType.REQUIRED)
 	public void updateAccount(Account account) {
 		sessionFactory.getCurrentSession().saveOrUpdate(account);
 	}
