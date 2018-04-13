@@ -16,6 +16,7 @@
        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
    
  	<mvc:annotation-driven />
+ 	<context:component-scan base-package="cs544.exercise8_2"/>
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->

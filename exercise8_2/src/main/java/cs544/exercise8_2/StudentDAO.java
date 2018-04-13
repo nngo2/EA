@@ -21,7 +21,7 @@ public class StudentDAO {
 	
 	// CANNOT USE TRANSACTION HERE SINCE NO VIEW LOADED YET, OpenSessionInViewFilter has NO session yet!!!
 	@PostConstruct
-	//@Transactional(value=TxType.REQUIRES_NEW)
+	//@Transactional(value=TxType.REQUIRED)
 	private void createSampleData() {
 		Session session = sessionFactory.openSession();
 		session.getTransaction().begin();
