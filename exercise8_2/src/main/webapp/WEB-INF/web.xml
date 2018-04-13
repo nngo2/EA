@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	<welcome-file-list>
+		<welcome-file>StudentsCourseServlet</welcome-file>
+	</welcome-file-list>
+	
+	<servlet>
+		<servlet-name>SpringMVC</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SpringMVC</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	<context-param>
+    	<param-name>contextConfigLocation</param-name>
+    	<param-value>/WEB-INF/springconfig.xml</param-value>
+	</context-param>
+	<listener>
+   		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener> 
+	
+	<filter>
+		<filter-name>OpenSessionInView</filter-name>
+		<filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
+		<init-param>
+        	<param-name>sessionFactoryBeanName</param-name>
+         	<param-value>sessionFactory</param-value>         
+      	</init-param>    	   
+	</filter>
+	<filter-mapping>
+		<filter-name>OpenSessionInView</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>	
+	
+	<servlet>
+		<display-name>StudentsCourseServlet</display-name>
+		<servlet-name>StudentsCourseServlet</servlet-name>
+		<servlet-class>cs544.exercise8_2.StudentsCourseServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StudentsCourseServlet</servlet-name>
+		<url-pattern>/StudentsCourseServlet</url-pattern>
+	</servlet-mapping>
+</web-app>
