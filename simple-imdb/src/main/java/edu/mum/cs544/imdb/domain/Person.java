@@ -1,8 +1,10 @@
 package edu.mum.cs544.imdb.domain;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
@@ -12,7 +14,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
@@ -27,23 +28,23 @@ public abstract class Person {
 	@NotNull
 	private String name;
 	
-	@Lob
-	private Character[] biography;
+	@Column(length=2000)
+	private String biography;
 	
 	@OneToMany(mappedBy="director")
-	private List<TVSeries> directedTVSeries;
+	private List<TVSeries> directedTVSeries = new ArrayList<>();
 	
 	@ManyToMany
 	@JoinTable(name="person_artist_series", 
 		joinColumns=@JoinColumn(name="person_id"),
 		inverseJoinColumns=@JoinColumn(name="tvseries_id"))
-	private List<TVSeries> joinedTVSeries;
+	private List<TVSeries> joinedTVSeries = new ArrayList<>();
 	
 	@ManyToMany
 	@JoinTable(name="person_artist_episode", 
 		joinColumns=@JoinColumn(name="person_id"),
 		inverseJoinColumns=@JoinColumn(name="espisode_id"))
-	private List<Episode> joinedEpisodes;
+	private List<Episode> joinedEpisodes = new ArrayList<>();
 	
 	public List<Episode> getJoinedEpisodes() {
 		return Collections.unmodifiableList(joinedEpisodes);
@@ -95,7 +96,7 @@ public abstract class Person {
 		directedTVSeries.remove(tvSeries);
 	}
 	
-	public Character[] getBiography() {
+	public String getBiography() {
 		return biography;
 	}
 
@@ -107,7 +108,7 @@ public abstract class Person {
 		return name;
 	}
 
-	public void setBiography(Character[] biography) {
+	public void setBiography(String biography) {
 		this.biography = biography;
 	}
 	

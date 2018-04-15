@@ -1,5 +1,6 @@
 package edu.mum.cs544.imdb.domain;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -18,6 +19,8 @@ public class TVSeries {
 	@Id @GeneratedValue
 	private int id;
 	
+	private String name;
+	
 	@Column(length=2000)
 	private String description;
 	
@@ -30,10 +33,22 @@ public class TVSeries {
 	private Person director;
 	
 	@ManyToMany(mappedBy="joinedTVSeries")
-	private List<Person> casts;
+	private List<Person> casts = new ArrayList<>();
 	
 	@OneToMany(mappedBy="tvSeries", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-	private List<Season> seasons;
+	private List<Season> seasons = new ArrayList<Season>();
+	
+	public int seasonCount() {
+		return seasons.size();
+	}
+	
+	public int episodeCount() {
+		int total = 0;
+		for (Season s : seasons) {
+			total += s.episodeCount(); 
+		}
+		return total;
+	}
 	
 	public List<Season> getSeasons() {
 		return Collections.unmodifiableList(seasons);
@@ -97,5 +112,13 @@ public class TVSeries {
 
 	public void setDirector(Person director) {
 		this.director = director;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	} 
 }

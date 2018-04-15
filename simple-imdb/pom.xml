@@ -7,13 +7,27 @@
   <name>Simple IMDB</name>
   <description>Simple IMDB</description>
   
+  <properties>
+	    <maven.compiler.source>1.8</maven.compiler.source>
+	    <maven.compiler.target>1.8</maven.compiler.target>
+	</properties>  
+  
   <dependencies>
+ <!-- 
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>6.0</version>
             <scope>provided</scope>
-        </dependency>
+        </dependency>     
+-->
+		<dependency>
+		    <groupId>org.jboss.spec</groupId>
+		    <artifactId>jboss-javaee-6.0</artifactId>
+		    <version>1.0.0.Final</version>
+		    <type>pom</type>
+		    <scope>provided</scope>
+		</dependency>        
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
@@ -27,7 +41,7 @@
 		<dependency>
    			<groupId>org.hibernate</groupId>
    			<artifactId>hibernate-validator</artifactId>
-   			<version>5.3.5.Final</version>
+   			<version>4.3.0.Final</version>
    		</dependency>        
         <dependency>
             <groupId>mysql</groupId>
@@ -42,8 +56,8 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
-            <version>1.2</version>
-        </dependency>
+            <version>1.2</version>         
+        </dependency>             
         
     	<!-- Spring dependencies -->
         <dependency>
@@ -73,7 +87,6 @@
     	</dependency>        
            
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -122,5 +135,5 @@
                 </executions>
             </plugin>
         </plugins>
-    </build>
+    </build>  
 </project>

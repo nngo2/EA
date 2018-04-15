@@ -1,5 +1,6 @@
 package edu.mum.cs544.imdb.domain;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -19,6 +20,8 @@ public class Episode {
 	@Id @GeneratedValue
 	private int id;
 	
+	private String name;
+	
 	@Column(length=2000)
 	private String description;
 	
@@ -26,7 +29,7 @@ public class Episode {
 	private Date arrivalDate;
 	
 	@ManyToMany(mappedBy="joinedEpisodes")
-	private List<Person> casts;
+	private List<Person> casts = new ArrayList<>();
 	
 	@ManyToOne
 	@JoinColumn(name="season_id")
@@ -80,5 +83,13 @@ public class Episode {
 	
 	public void setSeason(Season season) {
 		this.season = season;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

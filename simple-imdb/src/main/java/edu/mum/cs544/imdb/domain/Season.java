@@ -1,5 +1,6 @@
 package edu.mum.cs544.imdb.domain;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -34,7 +35,11 @@ public class Season {
 	private TVSeries tvSeries;
 	
 	@OneToMany(mappedBy="season", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-	private List<Episode> episodes;
+	private List<Episode> episodes = new ArrayList<>();
+	
+	public int episodeCount() {
+		return episodes.size();
+	}
 	
 	public List<Episode> getEpisodes() {
 		return Collections.unmodifiableList(episodes);

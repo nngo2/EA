@@ -1,5 +1,6 @@
 package edu.mum.cs544.imdb.domain;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class Studio {
 	private String location;
 	
 	@OneToMany(mappedBy="studio")
-	private List<TVSeries> tvSeriesList;
+	private List<TVSeries> tvSeriesList = new ArrayList<>();
 	
 	public List<TVSeries> getTVSeriesList() {
 		return Collections.unmodifiableList(tvSeriesList);

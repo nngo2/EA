@@ -13,8 +13,8 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
     
-    <context:annotation-config/>
-   	<tx:annotation-driven/>
+    <context:annotation-config/> 
+   	<tx:annotation-driven transaction-manager="transactionManager"/>
    	<jpa:repositories base-package="edu.mum.cs544.imdb.dao"/>
    	
    	<context:property-placeholder location="classpath:application.properties"/>
@@ -50,8 +50,7 @@
 				<prop key="hibernate.dialect">${hibernate.dialect}</prop>		
 				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
 				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>			
-				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
-				<prop key="hibernate.hbm2ddl.import_files">${hibernate.hbm2ddl.import_files}</prop>					
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>		
         		<prop key="connection.pool.size">${connection.pool.size}</prop>
 				<prop key="use_sql_comments">${use_sql_comments}</prop>
 			</props>
