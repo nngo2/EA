@@ -1,17 +1,17 @@
 package edu.mum.cs544.imdb.domain;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -28,30 +28,12 @@ public class Episode {
 	@Temporal(TemporalType.DATE)
 	private Date arrivalDate;
 	
-	@ManyToMany(mappedBy="joinedEpisodes")
-	private List<Person> casts = new ArrayList<>();
+	@OneToMany(mappedBy="episode", cascade = {CascadeType.REMOVE})
+	private Set<EpisodeCharacter> characters = new HashSet<>();
 	
 	@ManyToOne
 	@JoinColumn(name="season_id")
 	private Season season;
-	
-	public List<Person> getCasts() {
-		return Collections.unmodifiableList(casts);
-	}
-	
-	public void addCast(Person artist) {
-		casts.add(artist);
-		if (!artist.getJoinedEpisodes().contains(this)) {
-			artist.addJoinedEpisode(this);
-		}
-	}
-	
-	public void removeCast(Person artist) {
-		casts.remove(artist);
-		if (artist.getJoinedEpisodes().contains(this)) {
-			artist.removeJoinedEpisode(this);
-		}
-	}
 
 	public int getId() {
 		return id;
@@ -92,4 +74,13 @@ public class Episode {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public Set<EpisodeCharacter> getCharacters() {
+		return characters;
+	}
+
+	public void setCharacters(Set<EpisodeCharacter> characters) {
+		this.characters = characters;
+	}
+
 }

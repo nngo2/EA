@@ -3,14 +3,17 @@ package edu.mum.cs544.imdb.domain;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -20,6 +23,10 @@ public class TVSeries {
 	private int id;
 	
 	private String name;
+	
+	@ElementCollection(targetClass=Genre.class)
+	@Enumerated(EnumType.STRING)
+	private List<Genre> genres;
 	
 	@Column(length=2000)
 	private String description;
@@ -31,9 +38,6 @@ public class TVSeries {
 	@ManyToOne
 	@JoinColumn(name="director_id")
 	private Person director;
-	
-	@ManyToMany(mappedBy="joinedTVSeries")
-	private List<Person> casts = new ArrayList<>();
 	
 	@OneToMany(mappedBy="tvSeries", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<Season> seasons = new ArrayList<Season>();
@@ -64,22 +68,12 @@ public class TVSeries {
 		seasons.remove(season);
 	}	
 	
-	public List<Person> getCasts() {
+	public List<EpisodeCharacter> getCasts() {
+		List<EpisodeCharacter> casts = seasons.stream()
+				.flatMap(s -> s.getEpisodes().stream())
+				.flatMap(e -> e.getCharacters().stream())
+				.collect(Collectors.toList());
 		return Collections.unmodifiableList(casts);
-	}
-			
-	public void addCast(Person artist) {
-		casts.add(artist);
-		if (!artist.getJoinedTVSeries().contains(this)) {
-			artist.addJoinedTVSeries(this);
-		}
-	}
-	
-	public void removeCast(Person artist) {
-		casts.remove(artist);
-		if (artist.getJoinedTVSeries().contains(this)) {
-			artist.removeJoinedTVSeries(this);
-		}
 	}
 	
 	public int getId() {
@@ -120,5 +114,13 @@ public class TVSeries {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public List<Genre> getGenres() {
+		return genres;
+	}
+
+	public void setGenres(List<Genre> genres) {
+		this.genres = genres;
 	} 
 }

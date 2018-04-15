@@ -2,7 +2,9 @@ package edu.mum.cs544.imdb.domain;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -12,9 +14,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
@@ -34,53 +33,8 @@ public abstract class Person {
 	@OneToMany(mappedBy="director")
 	private List<TVSeries> directedTVSeries = new ArrayList<>();
 	
-	@ManyToMany
-	@JoinTable(name="person_artist_series", 
-		joinColumns=@JoinColumn(name="person_id"),
-		inverseJoinColumns=@JoinColumn(name="tvseries_id"))
-	private List<TVSeries> joinedTVSeries = new ArrayList<>();
-	
-	@ManyToMany
-	@JoinTable(name="person_artist_episode", 
-		joinColumns=@JoinColumn(name="person_id"),
-		inverseJoinColumns=@JoinColumn(name="espisode_id"))
-	private List<Episode> joinedEpisodes = new ArrayList<>();
-	
-	public List<Episode> getJoinedEpisodes() {
-		return Collections.unmodifiableList(joinedEpisodes);
-	}
-	
-	public void addJoinedEpisode(Episode episode) {
-		joinedEpisodes.add(episode);
-		if (!episode.getCasts().contains(this)) {
-			episode.addCast(this);
-		}
-	}
-	
-	public void removeJoinedEpisode(Episode episode) {
-		joinedEpisodes.remove(episode);
-		if (episode.getCasts().contains(this)) {
-			episode.removeCast(this);
-		}
-	}
-	
-	public List<TVSeries> getJoinedTVSeries() {
-		return Collections.unmodifiableList(joinedTVSeries);
-	}
-	
-	public void addJoinedTVSeries(TVSeries tvSeries) {
-		joinedTVSeries.add(tvSeries);
-		if (!tvSeries.getCasts().contains(this)) {
-			tvSeries.addCast(this);
-		}
-	}
-	
-	public void removeJoinedTVSeries(TVSeries tvSeries) {
-		joinedTVSeries.remove(tvSeries);
-		if (tvSeries.getCasts().contains(this)) {
-			tvSeries.removeCast(this);
-		}
-	}
+	@OneToMany(mappedBy="artist")
+	private Set<EpisodeCharacter> playedCharacters = new HashSet<>();
 	
 	public List<TVSeries> getDirectedTVSeries() {
 		return Collections.unmodifiableList(directedTVSeries);
@@ -118,5 +72,13 @@ public abstract class Person {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Set<EpisodeCharacter> getPlayedCharacters() {
+		return playedCharacters;
+	}
+
+	public void setPlayedCharacters(Set<EpisodeCharacter> playedCharacters) {
+		this.playedCharacters = playedCharacters;
 	}
 }

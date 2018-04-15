@@ -20,27 +20,28 @@
 			<div class="col">
 				<div class="card">
 					<div class="card-header">
-						<h6>Casts</h6>
+						<h6>Studio</h6>
 					</div>			
 					<div class="card-body">
-						<div class="card-title">Studio</div>
-						<div class="card-text">${tvseries.studio.name},${tvseries.studio.location}</div>
-						<div class="card-text">${tvseries.studio.description}</div>							
+						<div class="card-title">${tvseries.studio.name}, ${tvseries.studio.location}</div>	
+						<div class="card-text">${tvseries.studio.description}</div>										
 					</div>
 				</div>				
 			</div>
-		</div>
+		</div>		
 		<div class="row">
 			<div class="col">
 				<div class="card">
+					<div class="card-header">
+						<h6>Director</h6>
+					</div>						
 					<div class="card-body">
-						<div class="card-title">Director</div>
-						<div class="card-text">${tvseries.director.name}</div>
+						<div class="card-title">${tvseries.director.name}</div>
 						<div class="card-text"><c:out value="${tvseries.director.biography}" escapeXml="false"/></div>							
 					</div>
 				</div>				
 			</div>
-		</div>	
+		</div>			
 		<div class="row">
 			<div class="col">
 				<div class="card">
