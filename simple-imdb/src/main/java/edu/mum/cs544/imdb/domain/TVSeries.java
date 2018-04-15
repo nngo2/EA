@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,6 +18,7 @@ public class TVSeries {
 	@Id @GeneratedValue
 	private int id;
 	
+	@Column(length=2000)
 	private String description;
 	
 	@ManyToOne

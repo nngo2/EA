@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,6 +23,7 @@ public class Season {
 	@Range(min = 1990, max = 2018)
 	private int year;
 	
+	@Column(length=2000)
 	private String summary;
 	
 	@Lob

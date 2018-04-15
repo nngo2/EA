@@ -20,7 +20,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="person_type", discriminatorType=DiscriminatorType.STRING)
-public class Person {
+public abstract class Person {
 	@Id @GeneratedValue
 	private int id;
 	
@@ -36,13 +36,13 @@ public class Person {
 	@ManyToMany
 	@JoinTable(name="person_artist_series", 
 		joinColumns=@JoinColumn(name="person_id"),
-		inverseJoinColumns=@JoinColumn(name="artist_id"))
+		inverseJoinColumns=@JoinColumn(name="tvseries_id"))
 	private List<TVSeries> joinedTVSeries;
 	
 	@ManyToMany
 	@JoinTable(name="person_artist_episode", 
 		joinColumns=@JoinColumn(name="person_id"),
-		inverseJoinColumns=@JoinColumn(name="artist_id"))
+		inverseJoinColumns=@JoinColumn(name="espisode_id"))
 	private List<Episode> joinedEpisodes;
 	
 	public List<Episode> getJoinedEpisodes() {
