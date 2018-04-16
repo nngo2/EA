@@ -45,11 +45,11 @@ public class TVSeriesService {
 			}
 			return new ArrayList<>();
 		} else if ("artist_name".equals(criteria.getCriteriaType())) {
-			return tvSeriesDao.findBySeasonsEpisodesCharactersArtistName(criteria.getCriteria());
+			return tvSeriesDao.findBySeasonsEpisodesCharactersArtistNameLike(criteria.getCriteria());
 		} else if ("character_name".equals(criteria.getCriteriaType())) {
-			return tvSeriesDao.findBySeasonsEpisodesCharactersName(criteria.getCriteria());
+			return tvSeriesDao.findBySeasonsEpisodesCharactersNameLike(criteria.getCriteria());
 		} else if ("director_name".equals(criteria.getCriteriaType())) {
-			return tvSeriesDao.findByDirectorName(criteria.getCriteria());
+			return tvSeriesDao.findByDirectorNameLike(criteria.getCriteria());
 		}
 		return null;
 	}

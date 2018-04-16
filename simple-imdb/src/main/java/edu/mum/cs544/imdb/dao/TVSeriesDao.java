@@ -13,12 +13,15 @@ public interface TVSeriesDao extends JpaRepository<TVSeries, Integer> {
 	@Query("select s from TVSeries s where name like %:name%")
 	public List<TVSeries> findByName(@Param("name") String name);
 	
-	@Query("select s from TVSeries s join s.genres genre where genre = :genre")
+	@Query("select distinct s from TVSeries s join s.genres genre where genre = :genre")
 	public List<TVSeries> findByGenre(@Param("genre") Genre genre);
 	
-	public List<TVSeries> findBySeasonsEpisodesCharactersArtistName(String name);
+	@Query("select distinct se from TVSeries se join se.seasons s join s.episodes e join e.characters c join c.artist a where a.name like %:name%")
+	public List<TVSeries> findBySeasonsEpisodesCharactersArtistNameLike(@Param("name") String name);
+
+	@Query("select distinct se from TVSeries se join se.seasons s join s.episodes e join e.characters c where c.name like %:name%")	
+	public List<TVSeries> findBySeasonsEpisodesCharactersNameLike(@Param("name") String name);
 	
-	public List<TVSeries> findBySeasonsEpisodesCharactersName(String name);
-	
-	public List<TVSeries> findByDirectorName(String name);
+	@Query("select distinct se from TVSeries se join se.director d where d.name like %:name%")
+	public List<TVSeries> findByDirectorNameLike(@Param("name") String name);
 }
