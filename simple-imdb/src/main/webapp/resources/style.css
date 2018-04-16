@@ -1,3 +1,11 @@
+@media(min-width: 768px){
+    .navbar-form .form-control {
+        display: inline-block;
+        width: 200;    <---- Change this e.g. width: 100px;
+        vertical-align: middle;
+    }
+}
+
 html, body{
     height:100%; /* important to vertically align the container */
     width:100%;

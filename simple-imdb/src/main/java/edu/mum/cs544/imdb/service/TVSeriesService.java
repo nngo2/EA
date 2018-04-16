@@ -1,5 +1,6 @@
 package edu.mum.cs544.imdb.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,9 @@ import edu.mum.cs544.imdb.dao.PersonDao;
 import edu.mum.cs544.imdb.dao.SeasonDao;
 import edu.mum.cs544.imdb.dao.TVSeriesDao;
 import edu.mum.cs544.imdb.domain.EpisodeCharacter;
+import edu.mum.cs544.imdb.domain.Genre;
 import edu.mum.cs544.imdb.domain.Person;
+import edu.mum.cs544.imdb.domain.SearchCriteria;
 import edu.mum.cs544.imdb.domain.Season;
 import edu.mum.cs544.imdb.domain.TVSeries;
 
@@ -30,6 +33,26 @@ public class TVSeriesService {
 	
 	@Autowired
 	private PersonDao personDao;	
+	
+	public List<TVSeries> search(SearchCriteria criteria) {
+		if ("series_name".equals(criteria.getCriteriaType())) {
+			return tvSeriesDao.findByName(criteria.getCriteria());
+		} else if ("series_genre".equals(criteria.getCriteriaType())) {
+			try {
+				return tvSeriesDao.findByGenre(Genre.valueOf(criteria.getCriteria()));
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			return new ArrayList<>();
+		} else if ("artist_name".equals(criteria.getCriteriaType())) {
+			return tvSeriesDao.findBySeasonsEpisodesCharactersArtistName(criteria.getCriteria());
+		} else if ("character_name".equals(criteria.getCriteriaType())) {
+			return tvSeriesDao.findBySeasonsEpisodesCharactersName(criteria.getCriteria());
+		} else if ("director_name".equals(criteria.getCriteriaType())) {
+			return tvSeriesDao.findByDirectorName(criteria.getCriteria());
+		}
+		return null;
+	}
 	
 	public List<TVSeries> findAll() {
 		return tvSeriesDao.findAll();

@@ -41,6 +41,10 @@ insert into episodecharacter(id,person_id,episode_id,name,description) values(28
 insert into episodecharacter(id,person_id,episode_id,name,description) values(29,3,11,'Lucky Man','Having been brutally overpowered by Negan and his Saviors');
 insert into episodecharacter(id,person_id,episode_id,name,description) values(30,3,12,'Ron Smith','Rick and his group, along with the Kingdom and Hilltop, band together to bring the fight to Negan');
 insert into episodecharacter(id,person_id,episode_id,name,description) values(31,2,12,'Happy Mag','Having been brutally overpowered by Negan and his Saviors');
+insert into episodecharacter(id,person_id,episode_id,name,description) values(32,1,21,'Happy Mag','Having been brutally overpowered by Negan and his Saviors');
+insert into episodecharacter(id,person_id,episode_id,name,description) values(33,2,22,'Happy Mag','Having been brutally overpowered by Negan and his Saviors');
+insert into episodecharacter(id,person_id,episode_id,name,description) values(34,3,23,'Happy Mag','Having been brutally overpowered by Negan and his Saviors');
+
 
 -- MySQL/Oracle
 -- UPDATE hibernate_sequence SET next_val = 1000;
