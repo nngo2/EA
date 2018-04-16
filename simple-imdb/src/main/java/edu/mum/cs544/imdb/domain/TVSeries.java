@@ -3,7 +3,6 @@ package edu.mum.cs544.imdb.domain;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 @Entity
 public class TVSeries {
@@ -42,6 +42,9 @@ public class TVSeries {
 	@OneToMany(mappedBy="tvSeries", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<Season> seasons = new ArrayList<Season>();
 	
+	@Transient
+	private List<EpisodeCharacter> casts = new ArrayList<>();
+	
 	public int seasonCount() {
 		return seasons.size();
 	}
@@ -67,14 +70,6 @@ public class TVSeries {
 		season.setTvSeries(null);
 		seasons.remove(season);
 	}	
-	
-	public List<EpisodeCharacter> getCasts() {
-		List<EpisodeCharacter> casts = seasons.stream()
-				.flatMap(s -> s.getEpisodes().stream())
-				.flatMap(e -> e.getCharacters().stream())
-				.collect(Collectors.toList());
-		return Collections.unmodifiableList(casts);
-	}
 	
 	public int getId() {
 		return id;
@@ -122,5 +117,13 @@ public class TVSeries {
 
 	public void setGenres(List<Genre> genres) {
 		this.genres = genres;
+	}
+
+	public List<EpisodeCharacter> getCasts() {
+		return casts;
+	}
+
+	public void setCasts(List<EpisodeCharacter> casts) {
+		this.casts = casts;
 	} 
 }

@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
@@ -27,8 +28,14 @@ public abstract class Person {
 	@NotNull
 	private String name;
 	
+	private String placeOfBirth;	
+	
 	@Column(length=2000)
 	private String biography;
+	
+	@Lob
+	@NotNull
+	private byte[] picture;
 	
 	@OneToMany(mappedBy="director")
 	private List<TVSeries> directedTVSeries = new ArrayList<>();
@@ -81,4 +88,21 @@ public abstract class Person {
 	public void setPlayedCharacters(Set<EpisodeCharacter> playedCharacters) {
 		this.playedCharacters = playedCharacters;
 	}
+
+	public byte[] getPicture() {
+		return picture;
+	}
+
+	public void setPicture(byte[] picture) {
+		this.picture = picture;
+	}
+
+	public String getPlaceOfBirth() {
+		return placeOfBirth;
+	}
+
+	public void setPlaceOfBirth(String placeOfBirth) {
+		this.placeOfBirth = placeOfBirth;
+	}
+	
 }

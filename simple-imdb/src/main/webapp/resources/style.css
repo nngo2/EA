@@ -1,4 +1,10 @@
-.header-text {
-	color: white;
-	font-weight: 400;
+html, body{
+    height:100%; /* important to vertically align the container */
+    width:100%;
+    margin:0;
+    padding:0;
+}
+
+.white {
+    color: white !important;
 }

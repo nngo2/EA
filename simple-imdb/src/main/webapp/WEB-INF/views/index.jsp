@@ -11,12 +11,12 @@
 </head>
 <body>
 <div class="container">
-		<div class="row">
+		<div class="row justify-content-center">
 			<div class="col-lg-10" id="header">
 				<c:import url="header.jsp"/>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row justify-content-center">
 			<div class="col-lg-10" id="main">
 				<c:import url="${mainPage}"/>
 			</div>

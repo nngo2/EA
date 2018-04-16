@@ -18,11 +18,11 @@ insert into tvseries_genres(tvseries_id, genres) values(15,'Drama');
 insert into tvseries_genres(tvseries_id, genres) values(16,'Horror');
 insert into tvseries_genres(tvseries_id, genres) values(17,'Thriller');
 
-insert into season(id,tvseries_id,year,summary) values(7,6,2017,'Summary of 2017');
-insert into season(id,tvseries_id,year,summary) values(8,6,2018,'Summary of 2018');
-insert into season(id,tvseries_id,year,summary) values(18,15,2017,'Summary of 2017');
-insert into season(id,tvseries_id,year,summary) values(19,16,2017,'Summary of 2017');
-insert into season(id,tvseries_id,year,summary) values(20,17,2017,'Summary of 2017');
+insert into season(id,tvseries_id,year,summary) values(7,6,2017,'Summary of 2017: The fate of Jon Snow is revealed. Daenerys is brought before Khal Moro. Tyrion gets used to living in Meereen. Ramsay sends his dogs after Theon and Sansa. Ellaria and the Sand Snakes make their move. Cersei mourns for Myrcella.');
+insert into season(id,tvseries_id,year,summary) values(8,6,2018,'Summary of 2018: Darnerys demands loyalty from the surviving Lannister soldiers; Jon heeds Bran is warning about White Walkers on the move; Cersei vows to vanquish anyone or anything that stands in her way.');
+insert into season(id,tvseries_id,year,summary) values(18,15,2017,'Summary of 2017: Jon and his team go beyond the wall to capture a wight. Daenerys has to make a tough decision.');
+insert into season(id,tvseries_id,year,summary) values(19,16,2017,'Summary of 2017: Daenerys takes matters into her own hands. Arya reaches her destination. Jaime and Bronn collect the spoils from the war with the Tyrells.');
+insert into season(id,tvseries_id,year,summary) values(20,17,2017,'Summary of 2017: Jon and Daenerys finally meet. Cersei gains a new ally. Sansa receives an unexpected visitor. Sam is confronted for his actions.');
 
 insert into episode(id,season_id,arrivalDate,name,description) values(9,7,'2017-01-18','Swear','Having been brutally overpowered by Negan and his Saviors, Rick and the group kneel helplessly as they suffer heavy losses that will haunt them forever.');
 insert into episode(id,season_id,arrivalDate,name,description) values(10,7,'2017-04-18','Sing Me a Song','Carol and Morgan are brought to a community called the Kingdom, led by the eccentric King Ezekiel.');

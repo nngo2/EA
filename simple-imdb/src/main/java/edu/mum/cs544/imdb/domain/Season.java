@@ -28,7 +28,7 @@ public class Season {
 	private String summary;
 	
 	@Lob
-	private Byte[] poster;
+	private byte[] poster;
 	
 	@ManyToOne
 	@JoinColumn(name = "tvseries_id")
@@ -79,14 +79,6 @@ public class Season {
 		this.summary = summary;
 	}
 
-	public Byte[] getPoster() {
-		return poster;
-	}
-
-	public void setPoster(Byte[] poster) {
-		this.poster = poster;
-	}
-
 	public TVSeries getTvSeries() {
 		return tvSeries;
 	}
@@ -94,4 +86,13 @@ public class Season {
 	public void setTvSeries(TVSeries tvSeries) {
 		this.tvSeries = tvSeries;
 	}
+
+	public byte[] getPoster() {
+		return poster;
+	}
+
+	public void setPoster(byte[] poster) {
+		this.poster = poster;
+	}
+	
 }
