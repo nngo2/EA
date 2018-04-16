@@ -20,9 +20,10 @@
 			modelAttribute="searchCriteria" action="${post_url}" method="post">
 			<form:input path="criteria" class="form-control mr-sm-2"
 				type="search" placeholder="Search" aria-label="Search" />
-			<form:select path="criteriaType" class="form-control">
+			<form:select path="criteriaType" class="form-control mr-sm-2">
 				<form:option value="series_name">Name of the show</form:option>
 				<form:option value="series_genre">Genre of the show</form:option>
+				<form:option value="rating">Rating of the show</form:option>				
 				<form:option value="artist_name">Name of the artist</form:option>
 				<form:option value="character_name">Name of the character in the episode</form:option>
 				<form:option value="director_name">Director of the show</form:option>

@@ -2,6 +2,7 @@ package edu.mum.cs544.imdb.domain;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -14,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.validator.constraints.Range;
 
 @Entity
 public class Episode {
@@ -28,12 +31,18 @@ public class Episode {
 	@Temporal(TemporalType.DATE)
 	private Date arrivalDate;
 	
+	@Range(min=0, max=10)
+	private int rating = 0;
+	
 	@OneToMany(mappedBy="episode", cascade = {CascadeType.REMOVE})
 	private Set<EpisodeCharacter> characters = new HashSet<>();
 	
 	@ManyToOne
 	@JoinColumn(name="season_id")
 	private Season season;
+	
+	@OneToMany(mappedBy="episode", cascade = {CascadeType.REMOVE})
+	private List<UserComment> comments;
 
 	public int getId() {
 		return id;
@@ -81,6 +90,22 @@ public class Episode {
 
 	public void setCharacters(Set<EpisodeCharacter> characters) {
 		this.characters = characters;
+	}
+
+	public int getRating() {
+		return rating;
+	}
+
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
+
+	public List<UserComment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<UserComment> comments) {
+		this.comments = comments;
 	}
 
 }

@@ -24,13 +24,13 @@ insert into season(id,tvseries_id,year,summary) values(18,15,2017,'Summary of 20
 insert into season(id,tvseries_id,year,summary) values(19,16,2017,'Summary of 2017: Daenerys takes matters into her own hands. Arya reaches her destination. Jaime and Bronn collect the spoils from the war with the Tyrells.');
 insert into season(id,tvseries_id,year,summary) values(20,17,2017,'Summary of 2017: Jon and Daenerys finally meet. Cersei gains a new ally. Sansa receives an unexpected visitor. Sam is confronted for his actions.');
 
-insert into episode(id,season_id,arrivalDate,name,description) values(9,7,'2017-01-18','Swear','Having been brutally overpowered by Negan and his Saviors, Rick and the group kneel helplessly as they suffer heavy losses that will haunt them forever.');
-insert into episode(id,season_id,arrivalDate,name,description) values(10,7,'2017-04-18','Sing Me a Song','Carol and Morgan are brought to a community called the Kingdom, led by the eccentric King Ezekiel.');
-insert into episode(id,season_id,arrivalDate,name,description) values(11,8,'2018-01-18','Hearts Still Beating','Rick and his group, along with the Kingdom and Hilltop, band together to bring the fight to Negan and the Saviors.');
-insert into episode(id,season_id,arrivalDate,name,description) values(12,8,'2018-03-18','Rock in the Road','The plan involving Alexandrians, Kingdommers and Hilltoppers unfolds; As Rick continues to fight, he encounters a familiar face.');
-insert into episode(id,season_id,arrivalDate,name,description) values(21,18,'2017-01-18','Swear','Having been brutally overpowered by Negan and his Saviors, Rick and the group kneel helplessly as they suffer heavy losses that will haunt them forever.');
-insert into episode(id,season_id,arrivalDate,name,description) values(22,19,'2017-01-18','Swear','Having been brutally overpowered by Negan and his Saviors, Rick and the group kneel helplessly as they suffer heavy losses that will haunt them forever.');
-insert into episode(id,season_id,arrivalDate,name,description) values(23,20,'2017-01-18','Swear','Having been brutally overpowered by Negan and his Saviors, Rick and the group kneel helplessly as they suffer heavy losses that will haunt them forever.');
+insert into episode(id,season_id,arrivalDate,rating,name,description) values(9,7,'2017-01-18',10,'Swear','Having been brutally overpowered by Negan and his Saviors, Rick and the group kneel helplessly as they suffer heavy losses that will haunt them forever.');
+insert into episode(id,season_id,arrivalDate,rating,name,description) values(10,7,'2017-04-18',7,'Sing Me a Song','Carol and Morgan are brought to a community called the Kingdom, led by the eccentric King Ezekiel.');
+insert into episode(id,season_id,arrivalDate,rating,name,description) values(11,8,'2018-01-18',9,'Hearts Still Beating','Rick and his group, along with the Kingdom and Hilltop, band together to bring the fight to Negan and the Saviors.');
+insert into episode(id,season_id,arrivalDate,rating,name,description) values(12,8,'2018-03-18',7,'Rock in the Road','The plan involving Alexandrians, Kingdommers and Hilltoppers unfolds; As Rick continues to fight, he encounters a familiar face.');
+insert into episode(id,season_id,arrivalDate,rating,name,description) values(21,18,'2017-01-18',8,'Swear','Having been brutally overpowered by Negan and his Saviors, Rick and the group kneel helplessly as they suffer heavy losses that will haunt them forever.');
+insert into episode(id,season_id,arrivalDate,rating,name,description) values(22,19,'2017-01-18',10,'Swear','Having been brutally overpowered by Negan and his Saviors, Rick and the group kneel helplessly as they suffer heavy losses that will haunt them forever.');
+insert into episode(id,season_id,arrivalDate,rating,name,description) values(23,20,'2017-01-18',9,'Swear','Having been brutally overpowered by Negan and his Saviors, Rick and the group kneel helplessly as they suffer heavy losses that will haunt them forever.');
 
 
 insert into episodecharacter(id,person_id,episode_id,name,description) values(24,2,9,'Jame Smith','Jame Smith is a very strong person');

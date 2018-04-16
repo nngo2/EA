@@ -24,4 +24,6 @@ public interface TVSeriesDao extends JpaRepository<TVSeries, Integer> {
 	
 	@Query("select distinct se from TVSeries se join se.director d where d.name like %:name%")
 	public List<TVSeries> findByDirectorNameLike(@Param("name") String name);
+	
+	public List<TVSeries> findBySeasonsEpisodesRating(int rating);
 }

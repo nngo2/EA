@@ -50,6 +50,13 @@ public class TVSeriesService {
 			return tvSeriesDao.findBySeasonsEpisodesCharactersNameLike(criteria.getCriteria());
 		} else if ("director_name".equals(criteria.getCriteriaType())) {
 			return tvSeriesDao.findByDirectorNameLike(criteria.getCriteria());
+		} else if ("rating".equals(criteria.getCriteriaType())) {
+			try {
+				return tvSeriesDao.findBySeasonsEpisodesRating(Integer.parseInt(criteria.getCriteria()));				
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			return new ArrayList<>();
 		}
 		return null;
 	}

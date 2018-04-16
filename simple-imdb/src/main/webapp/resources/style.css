@@ -1,7 +1,7 @@
 @media(min-width: 768px){
     .navbar-form .form-control {
         display: inline-block;
-        width: 200;    <---- Change this e.g. width: 100px;
+        width: 300px;    <---- Change this e.g. width: 100px;
         vertical-align: middle;
     }
 }
@@ -13,6 +13,6 @@ html, body{
     padding:0;
 }
 
-.white {
-    color: white !important;
+.container {
+    min-width:1200px;
 }
