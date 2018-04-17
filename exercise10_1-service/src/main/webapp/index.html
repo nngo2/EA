@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+    <h1>Rest Services Example</h1>
+Mapped <b>/rest/shopping/list</b><br>
+	<b>method [GET]</b> 
+onto public java.util.Collection&lt;cs544.exercise10_1.shoppingList.Item&gt; cs544.exercise10_1.service.ShoppingListController.list()<p>
+
+Mapped <b>/rest/shopping/item</b><br>
+	<b>method [POST]</b>
+	onto public void cs544.exercise10_1.service.ShoppingListController.addItem(cs544.exercise10_1.shoppingList.Item)<p>
+
+Mapped <b>/rest/shopping/item/{product}*</b><br>
+		<b>method [GET]</b>
+	onto public cs544.exercise10_1.shoppingList.Item cs544.exercise10_1.service.ShoppingListController.item(java.lang.String)<p>
+
+Mapped <b>/rest/shopping/item/{product}</b><br>
+		<b>method [PUT]</b>
+	onto public cs544.exercise10_1.shoppingList.Item cs544.exercise10_1.service.ShoppingListController.updateItem(cs544.exercise10_1.shoppingList.Item)<p>
+		<b>method [DELETE]</b>
+	onto public void cs544.exercise10_1.service.ShoppingListController.deleteItem(java.lang.String)<p>
+</body>
+</html>
