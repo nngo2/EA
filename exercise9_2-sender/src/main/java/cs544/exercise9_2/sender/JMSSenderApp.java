@@ -9,8 +9,8 @@ public class JMSSenderApp {
 				"springconfigsender.xml");
 		JMSSender jmssender = context.getBean("jmsSender", JMSSender.class);
 		
-//		Person person = new Person("John", "Doe");
-//		jmssender.send(person);
+		Person person = new Person("John", "Doe");
+		jmssender.send(person);
 		
 		Calculator c1 = new Calculator(1, 2.5, Operator.PLUS);
 		jmssender.send(c1);
